@@ -8,6 +8,7 @@ import java.util.function.Function;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.InvalidElementStateException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -27,6 +28,8 @@ public class JiraTests {
 
 	static String newIssueSummary = "AutoTest " + new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 	static String newIssuePath;
+	static String attachmentFileLocation = "/Users/Robert/Downloads/";
+	static String attachmentFileName = "TEST1.pdf";
 
 	@BeforeTest
 	protected static void setUp() {
@@ -55,7 +58,7 @@ public class JiraTests {
 
 		new FluentWait<WebDriver>(browser).withTimeout(5, TimeUnit.SECONDS).pollingEvery(500, TimeUnit.MILLISECONDS)
 				.ignoring(InvalidElementStateException.class).until(new Function<WebDriver, WebElement>() {
-					public WebElement apply(WebDriver driver) {
+					public WebElement apply(WebDriver browser) {
 						return clearAndFill(By.cssSelector("input#summary"), newIssueSummary);
 					}
 				}).submit();
@@ -76,8 +79,26 @@ public class JiraTests {
 	}
 
 	@Test(description = "Uplaod Attachment", dependsOnMethods = { "openTicket" }, groups = { "Attachments" })
-	private void uplaodAttachment() throws InterruptedException {
+	private void uploadAttachment() throws InterruptedException {
+		browser.findElement(By.cssSelector("input.issue-drop-zone__file"))
+				.sendKeys(attachmentFileLocation + attachmentFileName);
 
+		WebElement attachmentLink = new FluentWait<WebDriver>(browser).withTimeout(10, TimeUnit.SECONDS)
+				.pollingEvery(2, TimeUnit.SECONDS).ignoring(NoSuchElementException.class)
+				.until(new Function<WebDriver, WebElement>() {
+					public WebElement apply(WebDriver browser) {
+						return browser.findElement(By.cssSelector("a.attachment-title"));
+					}
+				});
+
+		Assert.assertEquals(attachmentFileName, attachmentLink.getText());
+	}
+
+	@Test(description = "Download Attachment", dependsOnMethods = { "uploadAttachment" }, groups = { "Attachments" })
+	private void downloadAttachment() throws InterruptedException {
+		browser.get(browser.findElement(By.cssSelector("a.attachment-title")).getAttribute("href"));
+
+		// https://stackoverflow.com/questions/304268/getting-a-files-md5-checksum-in-java
 	}
 
 	@AfterTest
