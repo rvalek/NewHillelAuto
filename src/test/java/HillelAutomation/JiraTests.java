@@ -4,12 +4,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -50,12 +53,14 @@ public class JiraTests {
 
 		clearAndFill(By.cssSelector("input#project-field"), "General QA Robert (GQR)\n");
 
-		Thread.sleep(1500);
+		new FluentWait<WebDriver>(browser).withTimeout(5, TimeUnit.SECONDS).pollingEvery(500, TimeUnit.MILLISECONDS)
+				.ignoring(InvalidElementStateException.class).until(new Function<WebDriver, WebElement>() {
+					public WebElement apply(WebDriver driver) {
+						return clearAndFill(By.cssSelector("input#summary"), newIssueSummary);
+					}
+				}).submit();
 
-		clearAndFill(By.cssSelector("input#summary"), newIssueSummary).submit();
-
-		// browser.findElement(By.cssSelector("a#aui-uid-1")).click();
-		// clearAndFill(By.cssSelector("#description"), "hello 123").submit();
+		// ((JavascriptExecutor) browser).executeScript("window.scrollBy(0,250)");
 
 		List<WebElement> newIssueLinks = browser.findElements(By.cssSelector("a.issue-created-key"));
 
@@ -70,11 +75,10 @@ public class JiraTests {
 		Assert.assertTrue(browser.getTitle().contains(newIssueSummary));
 	}
 
-	// @AfterMethod(groups = {"Sanity"})
-	// private void sendUrgentMail(ITestResult result) {
-	// 	if(!result.isSuccess())
-	// 	 // sendMailToEveryone;
-	// }
+	@Test(description = "Uplaod Attachment", dependsOnMethods = { "openTicket" }, groups = { "Attachments" })
+	private void uplaodAttachment() throws InterruptedException {
+
+	}
 
 	@AfterTest
 	private void finish() {
