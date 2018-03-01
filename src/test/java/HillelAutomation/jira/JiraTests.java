@@ -17,27 +17,27 @@ public class JiraTests extends WebDriverTestBase {
 		System.out.println("Jira Pages Initialized");
 	}
 
-	@Test(description = "Invalid Login")
+	@Test(description = "Invalid Login", priority = -1)
 	public void failureLogin() {
 		loginPage.failureLogin();
 	}
 
-	@Test(description = "Valid Login", priority = 1)
+	@Test(description = "Valid Login")
 	public void successfulLogin() {
 		loginPage.successfulLogin();
 	}
 
-	@Test(description = "Create issue", dependsOnMethods = { "logIn" })
+	@Test(description = "Create issue", dependsOnMethods = { "successfulLogin" })
 	public void createIssue() throws InterruptedException {
 		issuePage.createIssue();
 	}
 
-	@Test(description = "Open issue", dependsOnMethods = { "createTicket" }, groups = { "Sanity" })
+	@Test(description = "Open issue", dependsOnMethods = { "createIssue" }, groups = { "Sanity" })
 	public void openIssue() {
 		issuePage.openIssue();
 	}
 
-	@Test(description = "Uplaod Attachment", dependsOnMethods = { "openTicket" }, groups = { "Attachments" })
+	@Test(description = "Uplaod Attachment", dependsOnMethods = { "openIssue" }, groups = { "Attachments" })
 	public void uploadAttachment() {
 		issuePage.uploadAttachment();
 	}
