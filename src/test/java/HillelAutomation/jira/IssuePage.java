@@ -74,6 +74,8 @@ public class IssuePage {
 		Assert.assertEquals(JiraVars.attachmentFileName, linkAttachment.getText());
 
 		attachmentLink = linkAttachment.getText();
+
+		// return JiraVars.attachmentFileName.equals(linkAttachment.getText());
 	}
 
 	public void downloadAttachment() {
