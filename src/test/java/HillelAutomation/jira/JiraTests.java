@@ -10,7 +10,7 @@ public class JiraTests extends WebDriverTestBase {
 	private LoginPage loginPage;
 	private IssuePage issuePage;
 
-	@BeforeClass
+	@BeforeClass(alwaysRun = true)
 	public void initPages() {
 		loginPage = PageFactory.initElements(browser, LoginPage.class);
 		issuePage = PageFactory.initElements(browser, IssuePage.class);
@@ -43,8 +43,9 @@ public class JiraTests extends WebDriverTestBase {
 		issuePage.uploadAttachment();
 	}
 
-	// @Test(description = "Download Attachment", dependsOnMethods = { "uploadAttachment" }, groups = { "Attachments" })
-	// public void downloadAttachment() {
-	// 	loginPage.downloadAttachment();
-	// }
+	@Test(description = "Download Attachment", dependsOnMethods = { "uploadAttachment" }, groups = {
+			"Issues.Attachments", "disabled" })
+	public void downloadAttachment() {
+		// loginPage.downloadAttachment();
+	}
 }
