@@ -1,4 +1,4 @@
-package HillelAutomation;
+package hillelauto;
 
 import java.util.concurrent.TimeUnit;
 

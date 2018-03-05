@@ -1,4 +1,4 @@
-package HillelAutomation;
+package hillelauto;
 
 /**
  * Hello world!

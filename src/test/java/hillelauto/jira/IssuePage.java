@@ -1,4 +1,4 @@
-package HillelAutomation.jira;
+package hillelauto.jira;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -13,7 +13,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.testng.Assert;
 
-import HillelAutomation.WebDriverTools;
+import hillelauto.WebDriverTools;
 
 public class IssuePage {
 	String newIssuePath;

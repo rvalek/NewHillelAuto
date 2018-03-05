@@ -1,4 +1,4 @@
-package HillelAutomation.jira;
+package hillelauto.jira;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -1,10 +1,10 @@
-package HillelAutomation.jira;
+package hillelauto.jira;
 
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import HillelAutomation.WebDriverTestBase;
+import hillelauto.WebDriverTestBase;
 
 public class JiraTests extends WebDriverTestBase {
 	private LoginPage loginPage;

@@ -1,4 +1,4 @@
-package HillelAutomation.jira;
+package hillelauto.jira;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
-import HillelAutomation.WebDriverTools;
+import hillelauto.WebDriverTools;
 
 public class LoginPage {
 	private final By inputUsername = By.cssSelector("input#login-form-username");

@@ -1,4 +1,4 @@
-package HillelAutomation;
+package hillelauto;
 
 import java.util.Collections;
 import java.util.HashMap;
