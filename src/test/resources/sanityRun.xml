@@ -8,10 +8,10 @@
             </run>
         </groups>
         <packages>
-            <package name="HillelAutomation.jira"/>
+            <package name="hillelauto.jira"/>
         </packages>
         <!-- <classes>
-            <class name="HillelAutomation.jira.JiraTests">
+            <class name="hillelauto.jira.JiraTests">
         </classes> -->
     </test>
 </suite>
