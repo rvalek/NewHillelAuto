@@ -15,7 +15,7 @@ public class WebDriverTestBase {
 		System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
 	}
 
-	@BeforeTest
+	@BeforeTest(alwaysRun = true)
 	public static void setUp() {
 		browser = new ChromeDriver(new ChromeOptions().addArguments("--start-maximized", "--incognito"));
 		browser.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
@@ -23,7 +23,7 @@ public class WebDriverTestBase {
 		WebDriverTools.setDriver(browser);
 	}
 
-	@AfterTest
+	@AfterTest(alwaysRun = true)
 	public static void finish() {
 		browser.close();
 	}
