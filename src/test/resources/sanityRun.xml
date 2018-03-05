@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Sanity Suite" verbose="0" group-by-instances="true">
-	<test name="Sanity" verbose="1" group-by-instances="true">
+    <test name="Sanity" verbose="1" group-by-instances="true">
         <groups>
             <run>
                 <exclude name="disabled"/>
@@ -10,8 +10,8 @@
         <packages>
             <package name="HillelAutomation.jira"/>
         </packages>
-		<!-- <classes>
-			<class name="HillelAutomation.jira.JiraTests">
-		</classes> -->
+        <!-- <classes>
+            <class name="HillelAutomation.jira.JiraTests">
+        </classes> -->
     </test>
 </suite>
