@@ -1,9 +1,10 @@
 package hillelauto.jira;
 
-import hillelauto.WebDriverTestBase;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import hillelauto.WebDriverTestBase;
 
 public class JiraTests extends WebDriverTestBase {
     private LoginPage loginPage;
@@ -21,29 +22,28 @@ public class JiraTests extends WebDriverTestBase {
         loginPage.failureLogin();
     }
 
-    @Test(description = "Valid Login", groups = {"Sanity"})
+    @Test(description = "Valid Login", groups = { "Sanity" })
     public void successfulLogin() {
         loginPage.successfulLogin();
     }
 
-    @Test(description = "Create issue", dependsOnMethods = {"successfulLogin"}, groups = {"Sanity", "Issues"})
+    @Test(description = "Create issue", dependsOnMethods = { "successfulLogin" }, groups = { "Sanity", "Issues" })
     public void createIssue() throws InterruptedException {
         issuePage.createIssue();
     }
 
-    @Test(description = "Open issue", dependsOnMethods = {"createIssue"}, groups = {"Sanity", "Issues"})
+    @Test(description = "Open issue", dependsOnMethods = { "createIssue" }, groups = { "Sanity", "Issues" })
     public void openIssue() {
         issuePage.openIssue();
     }
 
-    @Test(description = "Uplaod Attachment", dependsOnMethods = {"openIssue"}, groups = {"Sanity",
-            "Issues.Attachments"})
+    @Test(description = "Uplaod Attachment", dependsOnMethods = { "openIssue" }, groups = { "Issues.Attachments" })
     public void uploadAttachment() {
         issuePage.uploadAttachment();
     }
 
-    @Test(description = "Download Attachment", dependsOnMethods = {"uploadAttachment"}, groups = {
-            "Issues.Attachments", "disabled"})
+    @Test(description = "Download Attachment", dependsOnMethods = { "uploadAttachment" }, groups = {
+            "Issues.Attachments", "disabled" })
     public void downloadAttachment() {
         // loginPage.downloadAttachment();
     }
