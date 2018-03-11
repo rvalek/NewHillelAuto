@@ -8,10 +8,13 @@ public class TestRail {
     APIClient client;
     Long runID;
 
-    public TestRail() {
-        client = new APIClient("https://hillelauto.testrail.net/");
-        client.setUser("rvalek@intersog.com");
-        client.setPassword("hillel");
+    public TestRail(String baseURL) {
+        client = new APIClient(baseURL);
+    }
+
+    public void setCreds(String username, String password) {
+        client.setUser(username);
+        client.setPassword(password);
     }
 
     public void startRun(Integer projectID, String runName) throws Exception {
