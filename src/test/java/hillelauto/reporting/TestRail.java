@@ -25,7 +25,7 @@ public class TestRail {
     }
 
     public void endRun() throws Exception {
-        client.sendPost(String.format("close_run/%d", this.runID), null);
+        client.sendPost(String.format("close_run/%d", this.runID), new HashMap<>());
     }
 
     public void setResult(Integer caseID, Integer testNGResult) throws Exception {

@@ -28,8 +28,10 @@ public class JiraTests extends WebDriverTestBase {
 
     @BeforeClass(groups = "TestrailReport")
     protected void prepareTestRailRun() throws Exception {
-        System.out.println("Reporting");
-        trReport = new TestRail("https://hillelrob.testrail.io/");
+        String baseURL = "https://hillelrob.testrail.io/";
+        System.out.println("Reporting to " + baseURL);
+
+        trReport = new TestRail(baseURL);
         trReport.setCreds("rvalek@intersog.com", "hillel");
         trReport.startRun(1, "Jira Auto - " + new SimpleDateFormat("dd/MM/yy HH:mm").format(new Date()));
     }
