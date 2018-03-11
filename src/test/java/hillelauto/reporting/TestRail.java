@@ -18,8 +18,9 @@ public class TestRail {
     }
 
     public void startRun(Integer projectID, String runName) throws Exception {
-        JSONObject r = (JSONObject) client.sendPost(String.format("add_run/%d", projectID),
-                new HashMap<>().put("name", runName));
+        HashMap<String, String> data = new HashMap<>();
+        data.put("name", runName);
+        JSONObject r = (JSONObject) client.sendPost(String.format("add_run/%d", projectID), data);
         this.runID = (Long) r.get("id");
     }
 
@@ -28,8 +29,9 @@ public class TestRail {
     }
 
     public void setResult(Integer caseID, Integer testNGResult) throws Exception {
-        client.sendPost(String.format("add_result_for_case/%d/%d", this.runID, caseID),
-                new HashMap<>().put("status_id", convertResult(testNGResult)));
+        HashMap<String, Integer> data = new HashMap<>();
+        data.put("status_id", convertResult(testNGResult));
+        client.sendPost(String.format("add_result_for_case/%d/%d", this.runID, caseID), data);
     }
 
     private Integer convertResult(Integer testNGResult) {
