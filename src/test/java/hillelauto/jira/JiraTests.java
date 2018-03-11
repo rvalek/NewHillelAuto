@@ -28,7 +28,7 @@ public class JiraTests extends WebDriverTestBase {
     }
 
     @Test(description = "Create issue", dependsOnMethods = { "successfulLogin" }, groups = { "Sanity", "Issues" })
-    public void createIssue() throws InterruptedException {
+    public void createIssue() {
         issuePage.createIssue();
     }
 
