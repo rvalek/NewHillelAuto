@@ -1,14 +1,18 @@
 package hillelauto.jira;
 
-import hillelauto.WebDriverTools;
-import org.openqa.selenium.*;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.InvalidElementStateException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.testng.Assert;
 
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
+import hillelauto.WebDriverTools;
 
 public class IssuePage {
     private final By inputProject = By.cssSelector("input#project-field");
@@ -35,7 +39,8 @@ public class IssuePage {
         WebDriverTools.clearAndFill(inputProject, "General QA Robert (GQR)\n");
 
         new FluentWait<>(browser).withTimeout(5, TimeUnit.SECONDS).pollingEvery(500, TimeUnit.MILLISECONDS)
-                .ignoring(InvalidElementStateException.class).until(browser -> WebDriverTools.clearAndFill(inputSummary, JiraVars.newIssueSummary)).submit();
+                .ignoring(InvalidElementStateException.class)
+                .until(browser -> WebDriverTools.clearAndFill(inputSummary, JiraVars.newIssueSummary)).submit();
 
         // ((JavascriptExecutor) browser).executeScript("window.scrollBy(0,250)");
 
