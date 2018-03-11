@@ -2,9 +2,11 @@
 <suite name="Sanity Suite" verbose="0" group-by-instances="true">
     <test name="Sanity" verbose="1" group-by-instances="true">
         <groups>
+            <define name="TestrailReport"/>
             <run>
                 <exclude name="disabled"/>
                 <include name="Sanity"/>
+                <include name="TestrailReport"/>
             </run>
         </groups>
         <packages>
