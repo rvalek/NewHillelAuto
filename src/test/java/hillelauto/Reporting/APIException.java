@@ -9,12 +9,10 @@
  * Copyright Gurock Software GmbH. See license.md for details.
  */
 
-package Reporting;
- 
-public class APIException extends Exception
-{
-	public APIException(String message)
-	{
+package hillelauto.reporting;
+
+public class APIException extends Exception {
+	public APIException(String message) {
 		super(message);
 	}
 }
