@@ -5,8 +5,8 @@ import java.util.HashMap;
 import org.json.simple.JSONObject;
 
 public class TestRail {
-    APIClient client;
-    Long runID;
+    private final APIClient client;
+    private Long runID;
 
     public TestRail(String baseURL) {
         client = new APIClient(baseURL);
