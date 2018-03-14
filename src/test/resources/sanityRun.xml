@@ -16,3 +16,4 @@
         </classes> -->
     </test>
 </suite>
+<!-- mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/sanityRun.xml -->
