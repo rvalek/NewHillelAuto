@@ -1,14 +1,18 @@
 package hillelauto.jira;
 
-import hillelauto.WebDriverTools;
-import org.openqa.selenium.*;
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.InvalidElementStateException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.testng.Assert;
 
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
+import hillelauto.WebDriverTools;
 
 public class IssuePage {
     private final By inputProject = By.cssSelector("input#project-field");
@@ -34,8 +38,9 @@ public class IssuePage {
 
         WebDriverTools.clearAndFill(inputProject, "General QA Robert (GQR)\n");
 
-        new FluentWait<>(browser).withTimeout(5, TimeUnit.SECONDS).pollingEvery(500, TimeUnit.MILLISECONDS)
-                .ignoring(InvalidElementStateException.class).until(browser -> WebDriverTools.clearAndFill(inputSummary, JiraVars.newIssueSummary)).submit();
+        new FluentWait<>(browser).withTimeout(Duration.ofSeconds(5)).pollingEvery(Duration.ofMillis(500))
+                .ignoring(InvalidElementStateException.class)
+                .until(browser -> WebDriverTools.clearAndFill(inputSummary, JiraVars.newIssueSummary)).submit();
 
         // ((JavascriptExecutor) browser).executeScript("window.scrollBy(0,250)");
 
@@ -52,8 +57,8 @@ public class IssuePage {
     public void uploadAttachment() {
         inputUploadAttachment.sendKeys(JiraVars.attachmentFileLocation + JiraVars.attachmentFileName);
 
-        WebElement linkAttachment = new FluentWait<>(browser).withTimeout(10, TimeUnit.SECONDS)
-                .pollingEvery(2, TimeUnit.SECONDS).ignoring(NoSuchElementException.class)
+        WebElement linkAttachment = new FluentWait<>(browser).withTimeout(Duration.ofSeconds(10))
+                .pollingEvery(Duration.ofSeconds(2)).ignoring(NoSuchElementException.class)
                 .until(browser -> linkAttachmentName);
 
         Assert.assertEquals(JiraVars.attachmentFileName, linkAttachment.getText());
