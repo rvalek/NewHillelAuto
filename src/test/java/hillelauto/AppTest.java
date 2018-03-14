@@ -1,5 +1,8 @@
 package hillelauto;
 
+import java.util.Collections;
+import java.util.HashMap;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,9 +10,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
-import java.util.Collections;
-import java.util.HashMap;
 
 /**
  * Unit test for simple App.
@@ -19,7 +19,7 @@ public class AppTest {
 
     @DataProvider
     public static Object[][] dataProvider() {
-        return new Object[][]{{0, 9, 100, 10}, {0, 100, 10000, 1},};
+        return new Object[][] { { 0, 9, 100, 10 }, { 0, 100, 10000, 1 }, };
     }
 
     @Test(dataProvider = "dataProvider")
