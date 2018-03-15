@@ -13,12 +13,13 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 
 import hillelauto.reporting.TestRail;
 
 public class WebDriverTestBase {
     protected static WebDriver browser;
-    private TestRail trReport;
+    private static TestRail trReport;
 
     static {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
@@ -37,25 +38,27 @@ public class WebDriverTestBase {
         browser.close();
     }
 
+    @Parameters({ "testRailProjectId", "testRailRunPrefix" })
     @BeforeClass(groups = "TestrailReport")
-    protected void prepareTestRailRun() throws Exception {
+    protected static void prepareTestRailRun(String projectId, String runPrefix) throws Exception {
         String baseURL = "https://hillelrob.testrail.io/";
         System.out.println("Reporting to " + baseURL);
 
         trReport = new TestRail(baseURL);
         trReport.setCreds("rvalek@intersog.com", "hillel");
-        trReport.startRun(1, "Jira Auto - " + new SimpleDateFormat("dd/MM/yy HH:mm").format(new Date()));
+        trReport.startRun(Integer.parseInt(projectId),
+                runPrefix + " Robert Auto - " + new SimpleDateFormat("dd/MM/yy HH:mm").format(new Date()));
     }
 
     @AfterMethod(groups = "TestrailReport")
-    protected void reportResult(ITestResult testResult) throws Exception {
+    protected static void reportResult(ITestResult testResult) throws Exception {
         String testDescription = testResult.getMethod().getDescription();
         trReport.setResult(Integer.parseInt(testDescription.substring(0, testDescription.indexOf("."))),
                 testResult.getStatus());
     }
 
     @AfterClass(groups = "TestrailReport")
-    protected void closeTestRailRun() throws Exception {
+    protected static void closeTestRailRun() throws Exception {
         trReport.endRun();
     }
 }
