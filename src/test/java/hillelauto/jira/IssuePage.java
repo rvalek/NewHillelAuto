@@ -12,7 +12,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.testng.Assert;
 
-import hillelauto.WebDriverTools;
+import hillelauto.Tools;
 
 public class IssuePage {
     private final By inputProject = By.cssSelector("input#project-field");
@@ -36,11 +36,11 @@ public class IssuePage {
     public void createIssue() {
         buttonCreateIssue.click();
 
-        WebDriverTools.clearAndFill(inputProject, "General QA Robert (GQR)\n");
+        Tools.clearAndFill(inputProject, "General QA Robert (GQR)\n");
 
         new FluentWait<>(browser).withTimeout(Duration.ofSeconds(5)).pollingEvery(Duration.ofMillis(500))
                 .ignoring(InvalidElementStateException.class)
-                .until(browser -> WebDriverTools.clearAndFill(inputSummary, JiraVars.newIssueSummary)).submit();
+                .until(browser -> Tools.clearAndFill(inputSummary, JiraVars.newIssueSummary)).submit();
 
         // ((JavascriptExecutor) browser).executeScript("window.scrollBy(0,250)");
 

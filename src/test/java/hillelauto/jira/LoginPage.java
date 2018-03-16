@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
-import hillelauto.WebDriverTools;
+import hillelauto.Tools;
 
 public class LoginPage {
     private final By inputUsername = By.cssSelector("input#login-form-username");
@@ -38,7 +38,7 @@ public class LoginPage {
     private void login(boolean successful) {
         browser.get(JiraVars.baseURL);
 
-        WebDriverTools.clearAndFill(inputUsername, JiraVars.username);
-        WebDriverTools.clearAndFill(inputPassword, successful ? JiraVars.password : "badPassword").submit();
+        Tools.clearAndFill(inputUsername, JiraVars.username);
+        Tools.clearAndFill(inputPassword, successful ? JiraVars.password : "badPassword").submit();
     }
 }

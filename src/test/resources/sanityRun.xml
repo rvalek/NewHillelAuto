@@ -7,7 +7,7 @@
             <run>
                 <exclude name="disabled"/>
                 <include name="Sanity"/>
-                <include name="TestrailReport"/>
+                <include name="TestRailReport"/>
             </run>
         </groups>
         <packages>

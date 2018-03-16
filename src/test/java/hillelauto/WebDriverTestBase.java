@@ -1,7 +1,5 @@
 package hillelauto;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -30,7 +28,7 @@ public class WebDriverTestBase {
         browser = new ChromeDriver(new ChromeOptions().addArguments("--start-maximized", "--incognito"));
         browser.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-        WebDriverTools.setDriver(browser);
+        Tools.setDriver(browser);
     }
 
     @AfterTest(alwaysRun = true)
@@ -46,15 +44,19 @@ public class WebDriverTestBase {
 
         trReport = new TestRail(baseURL);
         trReport.setCreds("rvalek@intersog.com", "hillel");
-        trReport.startRun(Integer.parseInt(projectId),
-                runPrefix + " Robert Auto - " + new SimpleDateFormat("dd/MM/yy HH:mm").format(new Date()));
+        trReport.startRun(Integer.parseInt(projectId), runPrefix + " Robert Auto - " + Tools.timestamp());
     }
 
     @AfterMethod(groups = "TestrailReport")
     protected static void reportResult(ITestResult testResult) throws Exception {
         String testDescription = testResult.getMethod().getDescription();
-        trReport.setResult(Integer.parseInt(testDescription.substring(0, testDescription.indexOf("."))),
-                testResult.getStatus());
+        try {
+            int caseId = Integer.parseInt(testDescription.substring(0, testDescription.indexOf(".")));
+            trReport.setResult(caseId, testResult.getStatus());
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            System.out.println(testDescription + " - Case ID missing; not reporting to TestRail.");
+        }
+
     }
 
     @AfterClass(groups = "TestrailReport")
