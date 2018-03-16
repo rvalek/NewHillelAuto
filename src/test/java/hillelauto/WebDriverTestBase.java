@@ -15,7 +15,7 @@ public class WebDriverTestBase {
     protected WebDriver browser;
     private TestRail trReport;
 
-    {
+    static {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
     }
 
@@ -33,7 +33,7 @@ public class WebDriverTestBase {
     }
 
     @Parameters({ "testRailProjectId", "testRailRunPrefix" })
-    @BeforeTest(groups = "TestRailReport", enabled = false)
+    @BeforeTest(groups = "TestRailReport")
     public void prepareTestRailRun(String projectId, String runPrefix) throws Exception {
         String baseURL = "https://hillelrob.testrail.io/";
         System.out.println("Reporting to " + baseURL);
