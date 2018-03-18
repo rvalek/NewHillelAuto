@@ -16,11 +16,26 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onFinish(ITestContext context) {
+
+        HashSet<ITestResult> allResults = new HashSet<>();
+        allResults.addAll(context.getSkippedTests().getAllResults());
+        allResults.addAll(context.getFailedTests().getAllResults());
+        allResults.addAll(context.getPassedTests().getAllResults());
+
+        reportToTestRail(allResults);
+    }
+
+    public void reportToTestRail(HashSet<ITestResult> results) {
         String baseURL = "https://hillelrob.testrail.io/";
         String projectId = "1";
         String runPrefix = "Jira";
         String username = "rvalek@intersog.com";
         String password = "hillel";
+
+        if (baseURL.isEmpty()) {
+            System.out.println("TestRail URL is not set.");
+            return;
+        }
 
         System.out.println("Reporting to " + baseURL);
 
@@ -30,12 +45,7 @@ public class TestListener implements ITestListener {
         try {
             trReport.startRun(Integer.parseInt(projectId), runPrefix + " Robert Auto - " + Tools.timestamp());
 
-            HashSet<ITestResult> allResults = new HashSet<>();
-            allResults.addAll(context.getSkippedTests().getAllResults());
-            allResults.addAll(context.getFailedTests().getAllResults());
-            allResults.addAll(context.getPassedTests().getAllResults());
-
-            for (ITestResult result : allResults) {
+            for (ITestResult result : results) {
                 String testDescription = result.getMethod().getDescription();
                 try {
                     int caseId = Integer.parseInt(testDescription.substring(0, testDescription.indexOf(".")));
@@ -52,7 +62,6 @@ public class TestListener implements ITestListener {
             System.out.println("Failed to send report to TestRail.");
             e.printStackTrace();
         }
-
     }
 
     @Override
