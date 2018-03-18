@@ -5,21 +5,17 @@
         <listener class-name="hillelauto.listeners.TestListener"/>
     </listeners>
     <test name="Sanity" verbose="1" group-by-instances="true">
-        <parameter name="testRailProjectId" value="1"/>
-        <parameter name="testRailRunPrefix" value="Jira"/>
+        <!-- <parameter name="testRailProjectId" value="1"/>
+        <parameter name="testRailRunPrefix" value="Jira"/> -->
         <groups>
             <run>
                 <exclude name="disabled"/>
                 <include name="Sanity"/>
-                <include name="TestRailReport"/>
             </run>
         </groups>
         <packages>
             <package name="hillelauto.jira"/>
         </packages>
-        <!-- <classes>
-            <class name="hillelauto.jira.JiraTests">
-        </classes> -->
     </test>
 </suite>
 <!-- mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/sanityRun.xml -->
