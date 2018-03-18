@@ -25,7 +25,7 @@ public class TestListener implements ITestListener {
         reportToTestRail(allResults);
     }
 
-    public void reportToTestRail(HashSet<ITestResult> results) {
+    private void reportToTestRail(HashSet<ITestResult> results) {
         String baseURL = "https://hillelrob.testrail.io/";
         String projectId = "1";
         String runPrefix = "Jira";
