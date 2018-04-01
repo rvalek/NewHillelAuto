@@ -26,6 +26,14 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.20.1</version>
+                <configuration>
+                    <systemPropertyVariables>
+                    <!-- Following properties can be passed when running maven build like this: -Dcp1=something -Dcp2="something else". -->
+                    <!-- Then these properties can be accessed from Java like this: System.getProperty("hillel.customProperty1"); // returns "something" -->
+                        <hillel.customProperty1>${cp1}</hillel.customProperty1>
+                        <hillel.customProperty2>${cp2}</hillel.customProperty2>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
         </plugins>
     </build>
