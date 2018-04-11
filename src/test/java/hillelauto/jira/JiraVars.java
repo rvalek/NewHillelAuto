@@ -9,5 +9,5 @@ public interface JiraVars {
 
     public static final String newIssueSummary = "AutoTest " + Tools.timestamp();
     public static final String attachmentFileLocation = "/Users/Robert/Downloads/";
-    public static final String TEST_PNG = "Test.png";
+    public static final String attachmentFileName = "Test.png";
 }
