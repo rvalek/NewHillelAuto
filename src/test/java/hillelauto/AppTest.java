@@ -1,5 +1,9 @@
 package hillelauto;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,9 +11,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
-import java.util.Collections;
-import java.util.HashMap;
 
 /**
  * Unit test for simple App.
@@ -19,7 +20,7 @@ public class AppTest {
 
     @DataProvider
     public static Object[][] dataProvider() {
-        return new Object[][]{{0, 9, 100, 10}, {0, 100, 10000, 1},};
+        return new Object[][] { { 0, 9, 100, 10 }, { 0, 100, 10000, 1 }, };
     }
 
     @Test(dataProvider = "dataProvider")
@@ -40,10 +41,10 @@ public class AppTest {
         for (String n : data)
             numberCounter.put(n, numberCounter.containsKey(n) ? numberCounter.get(n) + 1 : 1);
 
-        Assert.assertTrue(Collections.max(numberCounter.values())
-                - Collections.min(numberCounter.values()) <= (total / 100 * threshold));
+        Collection<Integer> occurances = numberCounter.values();
+        Assert.assertTrue(Collections.max(occurances) - Collections.min(occurances) <= (total / 100 * threshold));
 
-        Thread.sleep(2000);
+        Thread.sleep(1500);
         browser.quit();
     }
 
