@@ -25,13 +25,11 @@ public class LoginPage {
 
     public void successfulLogin() {
         login(true);
-
         Assert.assertEquals(JiraVars.username, buttonProfile.getAttribute("data-username"));
     }
 
     public void failureLogin() {
         login(false);
-
         Assert.assertTrue(messageError.size() != 0);
     }
 
