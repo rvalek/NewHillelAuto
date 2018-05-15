@@ -60,6 +60,10 @@ public class AppTest {
         System.out.println("hello");
     }
 
+    public static void sayHow() {
+        System.out.println("how");
+    }
+
     public static void sayGoodbye() {
         System.out.println("bye");
     }
