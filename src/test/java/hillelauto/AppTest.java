@@ -59,4 +59,8 @@ public class AppTest {
     public static void sayHello() {
         System.out.println("hello");
     }
+
+    public static void sayGoodbye() {
+        System.out.println("bye");
+    }
 }
