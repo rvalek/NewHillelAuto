@@ -55,4 +55,8 @@ public class AppTest {
 
         return element;
     }
+
+    public static void sayHello() {
+        System.out.println("hello");
+    }
 }
