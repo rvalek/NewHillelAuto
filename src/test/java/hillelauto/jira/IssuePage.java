@@ -37,6 +37,7 @@ public class IssuePage {
         buttonCreateIssue.click();
 
         Tools.clearAndFill(inputProject, "General QA Robert (GQR)\n");
+        // Tools.clearAndFill(inputSummary, JiraVars.newIssueSummary)
 
         new FluentWait<>(browser).withTimeout(Duration.ofSeconds(5)).pollingEvery(Duration.ofMillis(500))
                 .ignoring(InvalidElementStateException.class)
@@ -57,13 +58,12 @@ public class IssuePage {
     public void uploadAttachment() {
         inputUploadAttachment.sendKeys(JiraVars.attachmentFileLocation + JiraVars.attachmentFileName);
 
-        WebElement linkAttachment = new FluentWait<>(browser).withTimeout(Duration.ofSeconds(10))
-                .pollingEvery(Duration.ofSeconds(2)).ignoring(NoSuchElementException.class)
-                .until(browser -> linkAttachmentName);
+        new FluentWait<>(browser).withTimeout(Duration.ofSeconds(10)).pollingEvery(Duration.ofSeconds(2))
+                .ignoring(NoSuchElementException.class).until(browser -> linkAttachmentName);
 
-        Assert.assertEquals(JiraVars.attachmentFileName, linkAttachment.getText());
+        Assert.assertEquals(JiraVars.attachmentFileName, linkAttachmentName.getText());
 
-        attachmentLink = linkAttachment.getText();
+        attachmentLink = linkAttachmentName.getText();
 
         // return JiraVars.attachmentFileName.equals(linkAttachment.getText());
     }

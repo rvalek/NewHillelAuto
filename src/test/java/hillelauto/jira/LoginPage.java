@@ -14,6 +14,7 @@ public class LoginPage {
     private final By inputUsername = By.cssSelector("input#login-form-username");
     private final By inputPassword = By.cssSelector("input#login-form-password");
     private final WebDriver browser;
+
     @FindBy(css = "a#header-details-user-fullname")
     private WebElement buttonProfile;
     @FindBy(css = "div#usernameerror")

@@ -45,6 +45,6 @@ public class JiraTests extends WebDriverTestBase {
     @Test(description = "Download Attachment", dependsOnMethods = { "uploadAttachment" }, groups = {
             "Issues.Attachments", "disabled" })
     public void downloadAttachment() {
-        // loginPage.downloadAttachment();
+        // issuePage.downloadAttachment();
     }
 }
