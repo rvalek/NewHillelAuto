@@ -32,8 +32,8 @@ public class TestListener implements ITestListener {
         String username = "rvalek@intersog.com";
         String password = "hillel";
 
-        if (baseURL.isEmpty()) {
-            System.out.println("TestRail URL is not set.");
+        if (baseURL.isEmpty() || projectId.isEmpty()) {
+            System.out.println("TestRail reporting is not configured.");
             return;
         }
 
