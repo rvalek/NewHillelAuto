@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -34,6 +35,12 @@ public class Requests {
     public static String[] sendPut(String URL, String data) throws IOException {
         HttpPut request = new HttpPut(URL);
         request.setEntity(new StringEntity(data, "UTF-8"));
+        return getData(httpclient.execute(request));
+    }
+
+    public static String[] sendDelete(String URL, String data) throws IOException {
+        HttpDelete request = new HttpDelete(URL);
+        ((HttpResponse) request).setEntity(new StringEntity(data, "UTF-8"));
         return getData(httpclient.execute(request));
     }
 

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.beust.jcommander.Parameter;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -34,10 +36,11 @@ public class Tests {
         checkContentType(responseData[0]);
     }
 
+    @Parameter
     @Test(description = "Third requirement - saving users")
-    void saveUser(String data) throws IOException {
+    void saveUser(String data, Boolean expectedResult) throws IOException {
         String[] responseData = Requests.sendPut(baseURL + userId, '{' + data + '}');
-        Assert.assertTrue(Requests.getUserInfo(baseURL, userId).contains(data));
+        Assert.assertEquals((Boolean) Requests.getUserInfo(baseURL, userId).contains(data), expectedResult);
         checkContentType(responseData[0]);
     }
 
