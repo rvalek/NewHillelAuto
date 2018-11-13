@@ -1,5 +1,6 @@
 package hillelauto;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -40,10 +41,10 @@ public class AppTest {
         for (String n : data)
             numberCounter.put(n, numberCounter.containsKey(n) ? numberCounter.get(n) + 1 : 1);
 
-        Assert.assertTrue(Collections.max(numberCounter.values())
-                - Collections.min(numberCounter.values()) <= (total / 100 * threshold));
+        Collection<Integer> occurances = numberCounter.values();
+        Assert.assertTrue(Collections.max(occurances) - Collections.min(occurances) <= (total / 100 * threshold));
 
-        Thread.sleep(2000);
+        Thread.sleep(1500);
         browser.quit();
     }
 
