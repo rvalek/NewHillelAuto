@@ -6,7 +6,7 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-import hillelauto.Tools;
+import hillelauto.Helper;
 import hillelauto.reporting.TestRail;
 
 public class TestListener implements ITestListener {
@@ -43,7 +43,7 @@ public class TestListener implements ITestListener {
         trReport.setCreds(username, password);
 
         try {
-            trReport.startRun(Integer.parseInt(projectId), runPrefix + " Robert Auto - " + Tools.timestamp());
+            trReport.startRun(Integer.parseInt(projectId), runPrefix + " Robert Auto - " + Helper.timeStamp());
 
             for (ITestResult result : results) {
                 String testDescription = result.getMethod().getDescription();
@@ -66,7 +66,7 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
-        result.getTestContext().getSkippedTests().removeResult(result.getMethod());
+        // result.getTestContext().getSkippedTests().removeResult(result.getMethod());
     }
 
     public void onTestSuccess(ITestResult result) {
