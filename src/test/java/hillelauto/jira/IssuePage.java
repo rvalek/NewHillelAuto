@@ -12,12 +12,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.testng.Assert;
 
-import hillelauto.Tools;
+import hillelauto.Helper;
 
 public class IssuePage {
     private final By inputProject = By.cssSelector("input#project-field");
     private final By inputSummary = By.cssSelector("input#summary");
     private final WebDriver browser;
+    private final Helper h;
     private String newIssuePath;
     private String attachmentLink;
     @FindBy(css = "a#create_link")
@@ -31,16 +32,17 @@ public class IssuePage {
 
     public IssuePage(WebDriver browser) {
         this.browser = browser;
+        this.h = new Helper(browser);
     }
 
     public void createIssue() {
         buttonCreateIssue.click();
 
-        Tools.clearAndFill(inputProject, "General QA Robert (GQR)\n");
+        h.findAndFill(inputProject, "General QA Robert (GQR)\n");
 
         new FluentWait<>(browser).withTimeout(Duration.ofSeconds(5)).pollingEvery(Duration.ofMillis(500))
                 .ignoring(InvalidElementStateException.class)
-                .until(browser -> Tools.clearAndFill(inputSummary, JiraVars.newIssueSummary)).submit();
+                .until(browser -> h.findAndFill(inputSummary, JiraVars.newIssueSummary)).submit();
 
         // ((JavascriptExecutor) browser).executeScript("window.scrollBy(0,250)");
 

@@ -25,8 +25,6 @@ public class WebDriverTestBase {
     public void setUp() {
         browser = new ChromeDriver(new ChromeOptions().addArguments("--start-maximized", "--incognito"));
         browser.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-
-        Tools.setDriver(browser);
     }
 
     @AfterTest(alwaysRun = true)
@@ -42,7 +40,7 @@ public class WebDriverTestBase {
 
         trReport = new TestRail(baseURL);
         trReport.setCreds("rvalek@intersog.com", "hillel");
-        trReport.startRun(Integer.parseInt(projectId), runPrefix + " Robert Auto - " + Tools.timestamp());
+        trReport.startRun(Integer.parseInt(projectId), runPrefix + " Robert Auto - " + Helper.timeStamp());
     }
 
     @AfterMethod(groups = "TestRailReport")
