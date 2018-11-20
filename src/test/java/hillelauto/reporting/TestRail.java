@@ -31,7 +31,11 @@ public class TestRail {
     public void setResult(Integer caseID, Integer testNGResult) throws Exception {
         HashMap<String, Integer> data = new HashMap<>();
         data.put("status_id", convertResult(testNGResult));
-        client.sendPost(String.format("add_result_for_case/%d/%d", this.runID, caseID), data);
+        JSONObject r = (JSONObject) client.sendPost(String.format("add_result_for_case/%d/%d", this.runID, caseID),
+                data);
+
+        if (r.get("id") == null)
+            throw new APIException("No such test case!");
     }
 
     private Integer convertResult(Integer testNGResult) {
@@ -43,7 +47,7 @@ public class TestRail {
         case 3:
             return 2; // Skip/Blocked
         default:
-            return 4; //Retest
+            return 4; // Retest
         }
     }
 }

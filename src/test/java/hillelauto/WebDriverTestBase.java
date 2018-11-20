@@ -1,5 +1,6 @@
 package hillelauto;
 
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -11,6 +12,8 @@ import org.testng.annotations.BeforeTest;
 public class WebDriverTestBase {
     protected WebDriver browser;
 
+    private HashMap<Integer, Integer> testResults = new HashMap<>();
+
     static {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
     }
@@ -19,8 +22,6 @@ public class WebDriverTestBase {
     public void setUp() {
         browser = new ChromeDriver(new ChromeOptions().addArguments("--start-maximized", "--incognito"));
         browser.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-
-        Tools.setDriver(browser);
     }
 
     @AfterTest(alwaysRun = true)

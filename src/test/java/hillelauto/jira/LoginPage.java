@@ -8,13 +8,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
-import hillelauto.Tools;
+import hillelauto.Helper;
 
 public class LoginPage {
     private final By inputUsername = By.cssSelector("input#login-form-username");
     private final By inputPassword = By.cssSelector("input#login-form-password");
     private final WebDriver browser;
-
+    private final Helper h;
     @FindBy(css = "a#header-details-user-fullname")
     private WebElement buttonProfile;
     @FindBy(css = "div#usernameerror")
@@ -22,6 +22,7 @@ public class LoginPage {
 
     public LoginPage(WebDriver browser) {
         this.browser = browser;
+        this.h = new Helper(browser);
     }
 
     public void successfulLogin() {
@@ -37,7 +38,7 @@ public class LoginPage {
     private void login(boolean successful) {
         browser.get(JiraVars.baseURL);
 
-        Tools.clearAndFill(inputUsername, JiraVars.username);
-        Tools.clearAndFill(inputPassword, successful ? JiraVars.password : "badPassword").submit();
+        h.findAndFill(inputUsername, JiraVars.username);
+        h.findAndFill(inputPassword, successful ? JiraVars.password : "badPassword").submit();
     }
 }
