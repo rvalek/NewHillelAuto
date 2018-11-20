@@ -1,5 +1,6 @@
 package hillelauto;
 
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -11,11 +12,14 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 
+import hillelauto.reporting.APIException;
 import hillelauto.reporting.TestRail;
 
 public class WebDriverTestBase {
     protected WebDriver browser;
     private TestRail trReport;
+
+    private HashMap<Integer, Integer> testResults = new HashMap<>();
 
     static {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
@@ -48,15 +52,22 @@ public class WebDriverTestBase {
         String testDescription = testResult.getMethod().getDescription();
         try {
             int caseId = Integer.parseInt(testDescription.substring(0, testDescription.indexOf(".")));
-            trReport.setResult(caseId, testResult.getStatus());
+
+            testResults.put(caseId, testResult.getStatus());
+            // trReport.setResult(caseId, testResult.getStatus());
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             System.out.println(testDescription + " - Case ID missing; not reporting to TestRail.");
         }
-
     }
 
     @AfterTest(groups = "TestRailReport")
     public void closeTestRailRun() throws Exception {
+        for (Integer testId : testResults.keySet())
+            try {
+                trReport.setResult(testId, testResults.get(testId));
+            } catch (APIException e) {
+                System.out.println("Can't report tp TestRail. Saving to file...");
+            }
         trReport.endRun();
     }
 }
