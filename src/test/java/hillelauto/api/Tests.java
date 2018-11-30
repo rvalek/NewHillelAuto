@@ -4,9 +4,8 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.beust.jcommander.Parameter;
-
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import hillelauto.api.requests.Requests;
@@ -15,7 +14,7 @@ import hillelauto.api.requests.Requests;
  * Created by hillel on 18.08.17.
  */
 public class Tests {
-    String baseURL = "http://soft.it-hillel.com.ua:3000/api/users";
+    String baseURL = "http://37.59.228.229:3000/API/users/";
     String userId = "";
 
     private void findUserID(String data) {
@@ -36,8 +35,12 @@ public class Tests {
         checkContentType(responseData[0]);
     }
 
-    @Parameter
-    @Test(description = "Third requirement - saving users")
+    @DataProvider
+    public Object[][] saveUserData() {
+        return new Object[][] { { "\"role\": \"Administrator\"", true }, { "sadadd", false } };
+    }
+
+    @Test(description = "Third requirement - saving users", dataProvider = "saveUserData")
     void saveUser(String data, Boolean expectedResult) throws IOException {
         String[] responseData = Requests.sendPut(baseURL + userId, '{' + data + '}');
         Assert.assertEquals((Boolean) Requests.getUserInfo(baseURL, userId).contains(data), expectedResult);
