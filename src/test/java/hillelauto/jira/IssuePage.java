@@ -51,9 +51,12 @@ public class IssuePage {
         newIssuePath = linkNewIssues.get(0).getAttribute("href");
     }
 
+    public String getTitle() {
+        return browser.getTitle();
+    }
+
     public void openIssue() {
         browser.get(newIssuePath);
-        Assert.assertTrue(browser.getTitle().contains(JiraVars.newIssueSummary));
     }
 
     public void uploadAttachment() {

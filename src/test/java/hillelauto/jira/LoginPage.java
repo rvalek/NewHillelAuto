@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
 
 import hillelauto.Helper;
 
@@ -25,16 +24,20 @@ public class LoginPage {
         this.h = new Helper(browser);
     }
 
+    public boolean erroMessageIsShown() {
+        return this.messageError.size() != 0;
+    }
+
+    public String getCurrentUserName() {
+        return buttonProfile.getAttribute("data-username");
+    }
+
     public void successfulLogin() {
         login(true);
-
-        Assert.assertEquals(JiraVars.username, buttonProfile.getAttribute("data-username"));
     }
 
     public void failureLogin() {
         login(false);
-
-        Assert.assertTrue(messageError.size() != 0);
     }
 
     private void login(boolean successful) {

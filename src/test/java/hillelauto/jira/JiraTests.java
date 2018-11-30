@@ -1,6 +1,7 @@
 package hillelauto.jira;
 
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -20,11 +21,13 @@ public class JiraTests extends WebDriverTestBase {
     @Test(description = "1. Invalid Login", priority = -1)
     public void failureLogin() {
         loginPage.failureLogin();
+        Assert.assertTrue(loginPage.erroMessageIsShown());
     }
 
     @Test(description = "2. Valid Login", groups = { "Sanity" })
     public void successfulLogin() {
         loginPage.successfulLogin();
+        Assert.assertEquals(JiraVars.username, loginPage.getCurrentUserName());
     }
 
     @Test(description = "3. Create issue", dependsOnMethods = { "successfulLogin" }, groups = { "Sanity", "Issues" })
@@ -35,6 +38,7 @@ public class JiraTests extends WebDriverTestBase {
     @Test(description = "4. Open issue", dependsOnMethods = { "createIssue" }, groups = { "Sanity", "Issues" })
     public void openIssue() {
         issuePage.openIssue();
+        Assert.assertTrue(issuePage.getTitle().contains(JiraVars.newIssueSummary));
     }
 
     @Test(description = "5. Uplaod Attachment", dependsOnMethods = { "openIssue" }, groups = { "Issues.Attachments" })
